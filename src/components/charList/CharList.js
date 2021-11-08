@@ -3,6 +3,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 import './charList.scss';
 import {useEffect, useRef, useState} from "react";
+import PropTypes from 'prop-types';
 
 const CharList = (props)=> {
     const [charList, setCharList] = useState([]);
@@ -112,6 +113,10 @@ const CharList = (props)=> {
         </div>
     )
 
+}
+
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired
 }
 
 export default CharList;
