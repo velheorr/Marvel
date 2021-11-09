@@ -1,7 +1,29 @@
-import './singleComic.scss';
+import {useParams, Link} from "react-router-dom";
+import './singleComicPage.scss';
 import xMen from '../../resources/img/x-men.png';
+import {useState} from "react";
+import useMarvelService from "../../services/MarvelService";
 
-const SingleComic = () => {
+const SingleComicPage = () => {
+    const {comicID} = useParams();
+    const [comic, setComic] = useState(null);
+    const {loading, error, getComics, clearError} = useMarvelService();
+
+    useEffect(()=>{
+        updateComics()
+    }, [comicID])
+
+    const updateComics = ()=>{
+        clearError();
+        getComics(comicID).then(onComicLoaded)
+    }
+
+    const onComicLoaded = (comics) =>{
+        setComic(comics)
+    }
+
+
+
     return (
         <div className="single-comic">
             <img src={xMen} alt="x-men" className="single-comic__img"/>
@@ -17,4 +39,8 @@ const SingleComic = () => {
     )
 }
 
-export default SingleComic;
+const View = ({comics}) =>{
+    const {} = comics
+}
+
+export default SingleComicPage;
