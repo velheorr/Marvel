@@ -1,7 +1,7 @@
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import './charList.scss';
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import PropTypes from 'prop-types';
 import useMarvelService from "../../services/MarvelService";
 
@@ -94,9 +94,13 @@ const CharList = (props)=> {
         )
     }
 
+    const elements = useMemo(()=>{
+        return setContent(process, ()=>renderItems(charList), newItemLoading)
+    }, [process])
+
     return (
         <div className="char__list">
-            {setContent(process, ()=>renderItems(charList), newItemLoading)}
+            {elements}
             <button
                 disabled={newItemLoading}
                 onClick={()=> onRequest(offset)}
